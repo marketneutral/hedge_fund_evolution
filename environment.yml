@@ -1,4 +1,4 @@
-name: nb_test
+name: hf_evolution
 channels:
   - defaults
 dependencies:
@@ -12,4 +12,3 @@ dependencies:
   - statsmodels
   - scikit-learn
   - scipy
-  - dill
