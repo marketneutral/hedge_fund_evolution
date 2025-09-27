@@ -41,6 +41,9 @@ Managing Director at Columbia Investment Management Co., LLC, generalist allocat
 
 - X/Twitter [@jonathanrlarkin](https://x.com/jonathanrlarkin)
 - LinkedIn [linkedin.com/in/quantfinance](linkedin.com/in/quantfinance)
+  
+This presentation in source and rendered form is available on my GitHub at [github.com/marketneutral/hedge_fund_evolution](github.com/marketneutral/hedge_fund_evolution).
+
 
 
 ## What Evolution?
@@ -145,11 +148,11 @@ y_pred = stack.predict(X_test)
 ## Dunbar cont'd: How Hedge Funds Manage It
 
 - **Pods** → small teams, central risk  
-- **Tech** → scale with models, not people  
-- **Lean** → cap size, preserve culture  
+- **Quant** → scale with models, not people  
+- **Lean** → keep a cap on size, preserve culture  
 - **Bureaucracy** → heavy process to scale  
 
-👉 Hedge funds scale by respecting Dunbar or building around it.  
+👉 Hedge funds scale by respecting Dunbar or trying to build around it.  
 
 
 ## Wisdom of Crowds (2004)
@@ -170,6 +173,10 @@ y_pred = stack.predict(X_test)
   - *Set evaluation metric (accuracy, F1, etc.).*  
   - *Run open competition among researchers.*  
 - *Netflix Prize* (2006), *Kaggle* (2010), *ImageNet* (2012)...
+
+::: {.incremental}
+- "The Kaggle Grandmasters Playbook: 7 Battle-Tested Modeling Techniques for Tabular Data", September 18, 2025, Nvidia Blog, [link.](https://developer.nvidia.com/blog/the-kaggle-grandmasters-playbook-7-battle-tested-modeling-techniques-for-tabular-data/)
+:::
 
 
 ## Machine, Platform, Crowd (2017)
@@ -193,7 +200,7 @@ y_pred = stack.predict(X_test)
 
 ## Quant Equity Workflow
 
-- Larkin, Jonathan R., "A Professional Quant Equity Workflow", *Quantopian Blog*, 2016, [link](https://github.com/marketneutral/lectures/blob/master/A%20Professional%20Quant%20Equity%20Workflow.pdf)
+- Larkin, Jonathan R., "A Professional Quant Equity Workflow", *Quantopian Blog*, 2016, [link.](https://github.com/marketneutral/lectures/blob/master/A%20Professional%20Quant%20Equity%20Workflow.pdf)
 - Separate teams are focused along an assembly line
   - Data acquisition
   - Alpha research (aka feature engineering)
