@@ -1,0 +1,15 @@
+name: nb_test
+channels:
+  - defaults
+dependencies:
+  - python=3.11
+  - jupyter
+  - pandas
+  - numpy
+  - matplotlib
+  - plotly
+  - seaborn
+  - statsmodels
+  - scikit-learn
+  - scipy
+  - dill

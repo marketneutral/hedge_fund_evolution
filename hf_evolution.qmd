@@ -1,0 +1,466 @@
+---
+title: "The Evolution of the Hedge Fund"
+subtitle: "Guest Lecture for MIT 18.5096<br>*Topics in Mathematics with Applications in Finance*"
+author: "Jonathan Larkin"
+date: "October 2, 2025"
+date-format: "MMMM D, YYYY"
+format:
+  revealjs:
+    self-contained: true
+    menu: false
+    slide-number: c/t
+theme:
+  - moon
+---
+
+## Disclaimer
+
+```{=html}
+<style type="text/css">
+.reveal .slide-logo {
+  bottom: 0;
+  left: 24px
+}
+
+.reveal .slide-number {
+  bottom: 10px;
+  right: 10px;
+  left: auto;
+  top: auto;
+}
+
+</style>
+```
+
+This presentation is for informational purposes only and reflects my personal views and interests. It does not constitute investment advice and is not representative of any current or former employer. The information presented is based on publicly available sources. References to specific firms are for illustrative purposes only and do not imply endorsement.
+
+
+## About Me
+
+Managing Director at Columbia Investment Management Co., LLC, generalist allocator, Data Science and Research lead. Formerly CIO at Quantopian, Global Head of Equities and Millennium Management LLC, and Co-Head of Equity Derivatives Trading at JPMorgan.
+
+- X/Twitter [@jonathanrlarkin](https://x.com/jonathanrlarkin)
+- LinkedIn [linkedin.com/in/quantfinance](linkedin.com/in/quantfinance)
+
+
+## What Evolution?
+
+Two trends
+
+- Unbundling
+- Human + Machine Collaboration
+
+
+
+# Theory
+
+## Condorcet Jury Theorem (1785)
+- The *Condorcet Jury Theorem* states that if each member of a jury has a probability greater than 1/2 of making the correct decision, then as the number of jurors increases, the probability that the majority decision is correct approaches 1.
+
+$$
+P(\text{majority correct}) \to 1 \text{ as } n \to \infty \\
+\iff \text{independence of errors}
+$$
+
+::: {.incremental}
+- e.g., `sklearn.ensemble.VotingClassifier` relies on this result.
+:::
+
+## Boosting Weak Learners (1988)
+- Kearns, Michael. *Thoughts on Hypothesis Boosting*. 1988.
+- Friedman, Jerome H. *Greedy function approximation: A gradient boosting machine*. 2001.
+- Sequentially train many "weak learner" models, each focusing on the errors of the previous ones.
+- e.g., `sklearn.ensemble.HistGradientBoostingClassifier`, `xgboost`, `lightgbm`, `catboost`
+- Gradient boosted decision trees are the dominant approach in tabular machine learning still today.
+
+## Boosting in a Nutshell  
+
+- The final model after **M rounds** is a weighted sum of weak models, $h_m(x)$.
+$$
+F_M(x) = \sum_{m=1}^M \gamma h_m(x)
+$$
+
+- Each step fits a learner to residuals (or negative gradient).
+
+$$
+F_m(x) = F_{m-1}(x) + \gamma h_m(x)
+$$
+
+👉 Each new learner reduces the cumulative errors.
+
+
+
+## Model Stacking (1992)
+- Wolpert, David H. *Stacked Generalization*. 1992.
+- Train "meta-model" on the predictions of base models.
+- Works best when base models are diverse and capture different aspects of the data.
+- e.g., `sklearn.ensemble.StackingClassifier`
+
+## Stacking in a Nutshell
+
+- Combine multiple different models by training a new model on their predictions.  
+- **Step 1:** Train base models (e.g. linear regression, tree, neural net).  
+- **Step 2:** Collect their predictions on **out-of-fold data**.  
+- **Step 3:** Train a **meta-model** on those predictions.  
+$$
+\hat{y} = g\big(f_1(x), f_2(x), \dots, f_K(x)\big)
+$$  
+where $f_k$ are base models, and $g$ is the meta-model.  
+
+👉 Leverages strengths of different models.  
+
+
+## Stacking into Boosting
+- Why not both?
+
+```{python}
+#| eval: false
+#| echo: true
+cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
+
+lin = Pipeline([
+  ("scaler", StandardScaler()),
+  ("lr", LogisticRegression(max_iter=1000))
+])
+
+stack = StackingClassifier(estimators=[("lin", lin)],
+  final_estimator=LGBMClassifier(),
+  stack_method="predict_proba", passthrough=True, cv=cv
+)
+
+stack.fit(X_train, y_train)
+y_pred = stack.predict(X_test)
+```
+
+
+## The Dunbar Number (1992)
+
+- Dunbar, R. I. M. (1992). *Neocortex size as a constraint on group size in primates.* Journal of Human Evolution, 22(6), 469–493.
+- Human maintainable stable relationships ≈ 150
+- Limit of trust & cohesion  
+- Beyond → silos, slow decisions, culture strain  
+
+---
+
+## Dunbar cont'd: How Hedge Funds Manage It
+
+- **Pods** → small teams, central risk  
+- **Tech** → scale with models, not people  
+- **Lean** → cap size, preserve culture  
+- **Bureaucracy** → heavy process to scale  
+
+👉 Hedge funds scale by respecting Dunbar or building around it.  
+
+
+## Wisdom of Crowds (2004)
+
+- Surowiecki, James. *The Wisdom of Crowds: Why the Many Are Smarter Than the Few and How Collective Wisdom Shapes Business, Economies, Societies, and Nations*. Doubleday, 2004.
+- For the crowd to be smarter than experts, we require
+  - *Diversity of opinion*
+  - *Independence of members*
+  - *Decentralization*
+  - *Aggregation of information*
+  
+
+## The Common Task Framework (2007-)
+
+- Donoho, D. (2017). "50 Years of Data Science." *Journal of Computational and Graphical Statistics*, 26(4), 745–766.
+  - *Define a clear task (e.g., image recognition).*
+  - *Provide dataset + ground truth labels + hidden test set.*
+  - *Set evaluation metric (accuracy, F1, etc.).*  
+  - *Run open competition among researchers.*  
+- *Netflix Prize* (2006), *Kaggle* (2010), *ImageNet* (2012)...
+
+
+## Machine, Platform, Crowd (2017)
+
+- Bryan McAfee and Erik Brynjolfsson. *Machine, Platform, Crowd: Harnessing Our Digital Future*. W. W. Norton & Company, 2017.
+  - *Wisdom of crowd means groups > individual experts*
+  - *Platforms unlock assets (Uber, Airbnb)*
+  - *Innovation from open-source & collaboration*
+  - *Trust via ratings (leaderboards)*
+  - *Success is $f(\text{incentives}, \text{governance})$*
+
+
+## Theory Takeaways
+- Successes in machine learning demonstrate the critical importance of ensemble methods.
+- The Common Task Framework has driven scientific progress at scale.
+- Social science principles can inform on the design of incentives and processes to harness collective intelligence.
+
+
+# The Traditional Hedge Fund
+
+
+## Quant Equity Workflow
+
+- Larkin, Jonathan R., "A Professional Quant Equity Workflow", *Quantopian Blog*, 2016, [link](https://github.com/marketneutral/lectures/blob/master/A%20Professional%20Quant%20Equity%20Workflow.pdf)
+- Separate teams are focused along an assembly line
+  - Data acquisition
+  - Alpha research (aka feature engineering)
+  - Signal combination (aka modeling)
+  - Risk and transaction cost modeling
+  - Portfolio construction (aka optimization)
+  - Execution
+
+
+## Quant Equity Workflow
+
+```{mermaid}
+%%| fig-height: 4
+flowchart LR
+
+    DATA(Data) --> UDEF(Universe Definition)
+
+    UDEF --> A1(alpha 1)
+    UDEF --> A2(alpha 2)
+    UDEF --> ADOTS(alpha...)
+    UDEF --> AN(alpha N)
+
+    A1 --> ACOMBO(Alpha Combination)
+    A2 --> ACOMBO
+    ADOTS --> ACOMBO
+    AN --> ACOMBO
+
+    DATA --> TARGET(Target)
+    TARGET --> ACOMBO
+    TARGET --> PCON
+    DATA --> RISK(Risk & T-Cost Models)
+
+    ACOMBO --> PCON(Optimization)
+    RISK --> PCON
+
+    PROD{{t-1 Portfolio}} --> PCON
+    PCON --> IDEAL{{Ideal Portfolio}}
+    IDEAL --> EXEC
+    
+    EXEC(Execution)
+```
+
+## Workflow: Minimal Non-Trivial Implementation
+
+- Craft four simple alphas (momentum, reversal, quality, value)
+- Create a target (forward 5d return demeaned)
+- Combine alphas with linear model
+- Use `cvxportfolio` machinery for risk model, t-cost model, optimization
+- [Cvxportfolio repo on github](https://github.com/cvxgrp/cvxportfolio)
+- Boyd, Stephen, et al. "Multi‑Period Trading via Convex Optimization." *Foundations and Trends in Optimization*, vol. 3, no. 1, 2017, pp. 1–76.
+
+
+## Workflow: Helpers
+```{python}
+#| eval: false
+#| echo: true
+import pandas as pd, numpy as np
+from sklearn.linear_model import LinearRegression
+import cvxportfolio as cvx
+from typing import Dict, List
+import yfinance as yf
+
+def xsec_z(df: pd.DataFrame) -> pd.DataFrame:
+    """Cross-sectional z-score by date."""
+    m, s = df.mean(1), df.std(1).replace(0, 1)
+    return df.sub(m, 0).div(s, 0)
+
+def cs_demean(df: pd.DataFrame) -> pd.DataFrame:
+    """Cross-sectional demean by date."""
+    return df.sub(df.mean(1), 0)
+
+def make_panel(features: Dict[str, pd.DataFrame], target: pd.DataFrame) -> pd.DataFrame:
+    """Wide (date×asset) → long panel with features + target."""
+    X = pd.concat(features, axis=1)  # MultiIndex columns: (feat, asset)
+    X = X.stack().rename_axis(['date','asset']).reset_index()
+    Y = target.stack().rename('y').reset_index()
+    return X.merge(Y, on=['date','asset']).dropna()
+
+class ReturnsFromDF:
+    """Forecaster wrapper for cvxportfolio (date × asset DataFrame)."""
+    def __init__(self, df: pd.DataFrame): self.df = df
+    def __call__(self, t, h, universe, **k):
+        # Robust to missing dates (e.g., holidays) and assets
+        if t not in self.df.index:
+            return pd.Series(0.0, index=universe, dtype=float)
+        return self.df.loc[t].reindex(universe).fillna(0.0)
+```
+
+## Workflow: Universe, Alphas, Targets
+
+```{python}
+#| eval: false
+#| echo: true
+assets = ['AAPL','AMZN','TSLA','GM','CVX','NKE']
+
+# Prices (Adj Close)
+prices = yf.download(assets, start="2015-01-01", progress=False)['Adj Close'].dropna(how='all')
+
+# Example price-only signals:
+mom = prices.pct_change(60)             # 3m momentum (approx)
+rev = -prices.pct_change(5)             # 1w reversal proxy
+vol = prices.pct_change().rolling(60).std()  # 3m volatility
+qual = -vol                        # "quality" proxy = low vol
+
+# Map to your earlier variable names (so slides run unchanged)
+btp  = (prices.rolling(252).mean() / prices)  # crude "value" proxy
+roa  = qual
+
+val  = btp[assets]  # value
+qual = roa[assets]  # quality
+rev  = rev[assets]  # reversal
+
+# Cross-sectional z-scoring
+mom_z, val_z, qual_z, rev_z = map(xsec_z, [mom, val, qual, rev])
+
+# Target: next-period return, cross-section demeaned
+r1   = prices[assets].pct_change().shift(-1)
+y_cs = cs_demean(r1)
+
+# Index alignment (avoid silent misalignment)
+idx = (mom_z.index
+  .intersection(val_z.index)
+  .intersection(qual_z.index)
+  .intersection(rev_z.index)
+  .intersection(y_cs.index))
+
+mom_z, val_z, qual_z, rev_z, y_cs = \
+  mom_z.loc[idx], val_z.loc[idx], qual_z.loc[idx], rev_z.loc[idx], y_cs.loc[idx]
+
+# Feature dict (single source of truth for names/order)
+FEATS = {'mom': mom_z, 'val': val_z, 'qual': qual_z, 'rev': rev_z}
+```
+
+## Workflow: Alpha Combination
+
+```{python}
+#| eval: false
+#| echo: true
+from scipy.stats.mstats import winsorize
+
+def walk_forward_oof(panel: pd.DataFrame, feature_cols: List[str],
+                     assets: List[str], warm: int = 60) -> pd.DataFrame:
+    """
+    Expanding fit: train on dates < t, predict on date == t (out-of-sample).
+    Returns alpha (date×asset). Gracefully handles short histories.
+    """
+    dates = np.sort(panel['date'].unique())
+    alpha = pd.DataFrame(index=dates, columns=assets, dtype=float)
+    model = LinearRegression()
+
+    if len(dates) <= max(warm, 1):  # not enough data to train
+        return alpha.fillna(0.0)
+
+    for i, t in enumerate(dates):
+        if i < warm:
+            continue
+        train = panel[panel['date'] < t]
+        test  = panel[panel['date'] == t]
+        if len(train) == 0 or test.empty:
+            continue
+        model.fit(train[feature_cols], train['y'])
+        alpha.loc[t, test['asset'].values] = model.predict(test[feature_cols])
+
+    return alpha.fillna(0.0)
+
+panel = make_panel(FEATS, y_cs)
+alpha = walk_forward_oof(panel, list(FEATS.keys()), assets, warm=60)
+
+# Stabilize: winsorize (5th–95th percentile per date)
+alpha = alpha.apply(lambda row: 
+    pd.Series(winsorize(row, limits=[0.05, 0.05]), index=row.index),
+    axis=1
+)
+
+```
+
+
+## Workflow: Optimization, Execution
+
+```{python}
+#| eval: false
+#| echo: true
+rf = ReturnsFromDF(alpha)
+gamma = 3.0
+kappa = 0.05
+
+obj = (cvx.ReturnsForecast(forecaster=rf)
+  - gamma * (cvx.FullCovariance() + kappa * cvx.RiskForecastError())
+  - cvx.StocksTransactionCost()
+)
+
+constraints = [cvx.LeverageLimit(3)]
+policy = cvx.MultiPeriodOptimization(obj, constraints, planning_horizon=2)
+
+start = str(alpha.index.min().date()) if len(alpha.index) else '2020-01-01'
+sim = cvx.StockMarketSimulator(assets)
+result = sim.backtest(policy, start_time=start)
+```
+
+## Worflow: Results!
+
+
+## Quant Equity Workflow
+
+::: columns
+::: column
+- Hope, Bradley. "With 125 Ph.D.s in 15 Countries, a Quant 'Alpha Factory' Hunts for Investing Edge." *Wall Street Journal*, April 5, 2017. [link](https://www.wsj.com/articles/with-125-ph-d-s-in-15-countries-a-quant-alpha-factory-hunts-for-investing-edge-1491471008)
+:::
+
+::: column
+![](https://si.wsj.net/public/resources/images/BF-AP653_WORLDQ_G_20170406061514.jpg){width="95%"}
+:::
+:::
+
+
+# Unbundling
+
+
+
+# Human + Machine
+
+## Types of Collaboration
+- Vertical
+- Horizontal
+- "Bayesian"
+
+## Vertical
+
+## Horizontal
+
+## Bayesian
+
+
+
+
+## More shortcomings of our JupyterHub setup
+
+- The `.py` editor is just a text editor; no linting, no auto-complete
+- Project conflicts abound (all projects share the same environment!)
+- All users are bound to the single `datascience-research` server (that's where the docker images live)
+
+## vs code + ssh solution 
+
+
+
+- Get rid of JupyterHub and docker images!!?
+- User runs VS Code *locally on laptop* and connects to the `datascience-research` (or *another*) server via VS Code SSH Extension
+- Each project has its own complete (server-side) environment (i.e., conda `.yml`)
+- IMC customizations (e.g., MS SQL) are done at root level on the server and available to all projects
+
+## VS CODE + SSH Benefits
+
+- Each repo will have a `.yml` file that *fully* describes the environment
+- User can work with `.ipynb`, `.py`, `.md`, etc. files with the full power of VS Code *and* full remote compute power
+- AI integration is first class (e.g., GitHub Copilot; Cursor is a VS Code fork)
+- Millions of people use VS Code; very well supported
+- Things "just work" (e.g., this presentation was created in VS Code with Quarto on the server)
+- No containers to build or maintain
+
+## Demo
+
+![](images/vscode.png)
+
+## Why Now? Why didn't we do this from the start?
+- VS Code with SSH and first-class Jupyter support was not available in 2018
+- Desire for AI asssisted development is new and led to exploring alternatives
+- Docker containers proved *more difficult* to maintain
+- The complexity of IMC data science projects was *over*estimated (i.e., we don't need to support very many packages)
+- We will soon be three power users and we **need** simplicity and reproducibility
+
