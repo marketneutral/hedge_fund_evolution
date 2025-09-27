@@ -12,3 +12,5 @@ dependencies:
   - statsmodels
   - scikit-learn
   - scipy
+  - cvxportfolio
+  - yfinance
