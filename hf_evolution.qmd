@@ -10,7 +10,7 @@ format:
     menu: false
     slide-number: c/t
 theme:
-  - moon
+  - white
 ---
 
 ## Disclaimer
@@ -159,11 +159,11 @@ y_pred = stack.predict(X_test)
   - *Bureaucracy* → heavy process to scale  
 :::
 
-## Wisdom of Crowds (2004) {.smaller}
+## Wisdom of Crowds (2004)
 ::: {.incremental}
 - Surowiecki, James. *The Wisdom of Crowds: Why the Many Are Smarter Than the Few and How Collective Wisdom Shapes Business, Economies, Societies, and Nations*. Doubleday, 2004.
 - For the crowd to be smarter than experts, we require
-  - *Diversity of opinion* → different perspectives reduce blind spots
+  - *Diversity of opinion* → reduce blind spots
   - *Independence of members* → avoid groupthink
   - *Decentralization* → empower local knowledge
   - *Aggregation of information* → combine insights effectively
@@ -207,7 +207,7 @@ y_pred = stack.predict(X_test)
 
 
 ## Quant Equity Workflow
-
+::: {.incremental}
 - Larkin, Jonathan R., "A Professional Quant Equity Workflow", *Quantopian Blog*, 2016, [link.](https://github.com/marketneutral/lectures/blob/master/A%20Professional%20Quant%20Equity%20Workflow.pdf)
 - Separate teams are focused along an assembly line
   - Data acquisition
@@ -216,6 +216,7 @@ y_pred = stack.predict(X_test)
   - Risk and transaction cost modeling
   - Portfolio construction (aka optimization)
   - Execution
+:::
 
 ## Quant Equity Workflow
 
@@ -422,7 +423,7 @@ flowchart LR
 - Future hedge funds: **open, decentralized, global**  
 
 
-# Human + Machine
+# Human + Machine Collaboration
 
 
 ## Types of Collaboration
@@ -431,111 +432,50 @@ flowchart LR
 
 ## Horizontal
 
-- Human forecasts concatenated with machine forecasts
+- Human forecasts concatenated with features
 - Fit model on both
+
+## Horizontal Example {.smaller}
+::: {.incremental}
+- Cao, S. S., Jiang, W., Wang, J. L., & Yang, B. (2024). "From Man vs. Machine to Man + Machine: The art and AI of stock analyses. *Journal of Financial Economics*, 160, 103910. https://doi.org/10.1016/j.jfineco.2024.103910
+- Human forecasts taken as 948,054 twelve-month price forecasts (IBES, 2001–2018) for 6,190 firms by 11,341 analysts
+- Features for ML model:Firm/industry fundamentals, textual disclosures (10-K, 10-Q, 8-K), and macroeconomic series (FRED)
+- Target: 12m forward return
+- Compare performance:
+  - *Human only*: analyst forecasts
+  - *Machine only*: an ensemble of ML algorithms (random forests, boosting, LSTM and) trained on the features noted to predict year-ahead stock prices, *excluding any analyst forecast inputs*
+  - *Human + machine*: same ensemble trained on analyst forecasts + features
+:::
+
+## Horizontal Example, Results
+::: {.incremental}
+- The machine only model beats human analyst forecasts 54% of the time
+- The human + machine model beats human forecasts 57% of the time
+:::
+
 
 ## Vertical
 
 - Stepwise: human first, machine second (or vice versa)
+- e.g., human generates ideas, machine filters/ranks/optimizes
 
 
-## Motivation
+## Vertical Example {.smaller}
+::: {.incremental}
+- deHaan, E., Lee, C., Liu, M., & Noh, S. (2025). "The Shadow Value of Public Information: Evidence from Mutual Fund Managers" (Stanford University Graduate School of Business Research Paper). Available at SSRN.
+- Constructs **170 alphas** from public data (e.g., market, accounting, analysts, text, macro, ratings).
+- Uses 13-F filing data for **3,337** active, diversified U.S. equity mutual funds (1990–2020) as "human" portfolios.
+- Portfolio holdings returns are adjusted to subtract style benchmark (aka "DGTW" adjustment); i.e., human + machine is evaluated **within** fund style/risk/size/liquidity constraints.
+- **AI analyst** (just a random forest model!) that
+  - makes an independent stock return forecast, one quarter ahead
+  - uses that forecast to **adjust** the human manager's portfolio
+:::
 
-- Canonical view: “Public” info is free and instantly priced (EMH).
-- Reality: Converting public data → stock picks is **costly** (analysts, data prep, modeling, infra, time).
-- Research question: **How large are the *economic* costs of processing public information?**
-
-## Study Design (High Level)
-
-- Population: **3,337** active, diversified U.S. equity mutual funds (1990–2020).
-- Build an **AI analyst** that uses *only* public data and **realistic constraints**.
-- Compare:
-  - Human manager (actual holdings)
-  - **AI-modified** (hybrid; selective replacements)
-  - **AI-only** (full replacement within style constraints)
-- Measure: **Dollar alpha** and **Sharpe**; treat forgone gains as **lower bound** of managers’ marginal info-processing costs.
-
-## Key Findings (Punchline)
-
-- **AI-modified**: +**$17.1M** incremental **per quarter** vs. human; **~93%** of managers outperformed over their lifetimes.
-- **AI-only**: +**$17.2M** incremental per quarter; ~**42%** allocated to style indices without hurting results.
-- Sharpe improves materially (details ahead).
-- Results robust to risk models, transaction costs, benchmark identification, and incentive heterogeneity.
-
-## Conceptual Framework
-
-- Investors process info until **marginal cost = marginal gain**.
-- If AI (public info only) can improve a manager’s portfolio under the manager’s constraints, the **forgone gains** represent a **lower-bound** on the manager’s marginal info costs.
-- Human + machine is evaluated **within** fund style/risk/size/liquidity constraints.
-
-## Data Inputs (Public Only)
-
-- **Market** (CRSP): prices, returns (incl. delisting), volatility, beta, liquidity/volume, market cap.
-- **Accounting** (Compustat point-in-time; proper lags): profitability, accruals, leverage, growth, etc.
-- **Analysts** (I/B/E/S): consensus EPS, recommendations, price targets (careful timing; summary files).
-- **Text** (EDGAR): 10-K/Q and 8-K tone/complexity/uncertainty (point-in-time release).
-- **Macro** (Welch–Goyal set): term/default spreads, D/P, E/P, etc.
-- **Ratings**: S&P long-term issuer ratings.
-- ~**170** features; winsorization by feature type; point-in-time construction to avoid look-ahead.
-
-## Return Target & Benchmarking
-
-- Predict **quarter-ahead** stock returns:
-  - Preferred: **DGTW benchmark-adjusted** returns (size × B/M × momentum groups).
-  - Also considered: excess returns vs. risk-free.
-- Portfolio construction and evaluation are **within DGTW groups** to preserve style.
-
-## ML Pipeline (Pseudocode)
-
-```pseudo
-# =========================
-# FEATURES & LABELS
-# =========================
-for each month t in 1980..2020:
-    X_t := features available by end of t-1 (market, accounting (lagged), IBES, EDGAR text, macro, ratings)
-    y_t := realized stock return over t+1..t+3 (DGTW-adjusted preferred)
-
-# Preprocess within training folds only:
-# - Winsorize features (type-specific rules)
-# - Impute missing (numeric: quarter-mean; categorical/flags: 0)
-# - Standardize numeric using train stats
-
-# =========================
-# ROLLING EXPANDING TRAINING
-# =========================
-for prediction year Y in 1986..2020:
-    train_period := 1980-01 .. (Y-1)-10  # end in Oct Y-1 to avoid quarter overlap
-    # time-series cross-validated randomized hyperparameter search (RF depth, trees, min split/leaf, mtry)
-    fit RandomForest_Y on train_period to minimize validation MSE
-
-    # =========================
-    # PREDICT MONTHLY IN YEAR Y
-    # =========================
-    for each month t in Y:
-        ŷ_t := RandomForest_Y.predict(X_t)
-        # also compute within-DGTW ranks/deciles for portfolio rules
-
-# Optionally also fit a Neural Network model; ensemble via average rank to get a small lift.
-```
-
-## What Drives Predictions?
-
-Permutation importance analysis shows simple features are highly influential:
-
-- Market value, dollar volume, trading activity, earnings-forecast signals.  
-- RF captures nonlinear interactions among simple predictors.  
-
-## Portfolio Construction – Shared Constraints
-
-- No shorting; quarterly rebalance only.  
-- Within-style swaps: replacements must come from the same DGTW group.  
-- Depth/liquidity: cap any single holding to ≤ 20% of the stock’s market cap (clip and keep overflow).  
-- No duplicate replacements (“without replacement” within a fund/quarter).  
-- Payout convention: AI’s incremental gain is paid out quarterly so human and AI start next quarter with equal AUM (conservative for AI in dollars).  
-
-## AI-Modified (Hybrid) – Pseudocode
-
-```pseudo
+## AI Analyst Adjustment Methodology
+```{python}
+#| eval: false
+#| echo: true
+#| code-line-numbers: "1-2|3|4|5|6|8-10|12-15"
 inputs:
   w_h[j]      # human start-of-quarter weight for stock j
   g[j]        # DGTW group of stock j
@@ -551,7 +491,14 @@ initialize:
 for j in holdings sorted by descending w_h[j]:
     if decile[j] == 10:
         used.add(j)
+```
 
+## Attempt upgrades for others
+
+```{python}
+#| eval: false
+#| echo: true
+#| code-line-numbers: "1-2|3|4|5|6|7-8|9-11|12-13|14"
 # Attempt upgrades for others (largest positions first)
 for j in holdings sorted by descending w_h[j]:
     if decile[j] in 1..9:
@@ -566,7 +513,13 @@ for j in holdings sorted by descending w_h[j]:
             w_ai[k] +=  delta_value / NAV
             w_ai[j] -=  delta_value / NAV
             used.add(k)
+```
+## Replace remaining bottom-decile names
 
+```{python}
+#| eval: false
+#| echo: true
+#| code-line-numbers: "1-2|3|4|5-6|8-9"
 # Replace remaining bottom-decile names with the group index
 for j in holdings:
     if decile[j] == 1 and w_ai[j] > 0:
@@ -578,108 +531,27 @@ for j in holdings:
 project w_ai onto the simplex (weights ≥ 0, sum = 1)
 ```
 
-## AI-Only (Full Replacement) – Pseudocode
 
-```pseudo
-inputs as above
-initialize:
-  w_ai := 0
-  used := ∅
-  backlog[group] := 0 for all groups
+## Vertical Example Results
+::: {.incremental}
+- Payout convention: AI’s incremental gain is paid out quarterly so human and AI start next quarter with equal AUM (conservative for AI in dollars).
+- Avg human Sharpe ≈ 0.47.
+- Avg paired Sharpe difference (AI-modified − human) ≈ +0.17 (t ≈ 69).
+- **~95% of funds show a positive Sharpe improvement.**
+- Does this include transaction costs? Yes, and AI still helps net of costs.
+:::
 
-# Map each human slot to a top-decile name in the same group
-for j in human holdings sorted by descending w_h[j]:
-    group := g[j]
-    C := { s in group | decile[s] == 10 and s ∉ used }
-    if C ≠ ∅:
-        k := argmax_s∈C ŷ[s]
-        target_value := w_h[j] * NAV
-        max_value := 0.20 * market_cap(k)
-        delta_value := min(target_value, max_value)
-        w_ai[k] += delta_value / NAV
-        used.add(k)
-        # any leftover because of cap stays to be assigned:
-        if delta_value < target_value:
-            backlog[group] += (target_value - delta_value) / NAV
-    else:
-        backlog[group] += w_h[j]
+## Conclusions {.smaller}
+::: {.incremental}
+- Ensemble methods are powerful and widely used in machine learning.
+- The Common Task Framework has driven rapid progress in AI.
+- Social science principles can inform the design of incentives and processes to harness collective intelligence.
+- Hedge funds are unbundling, embracing crowdsourcing and crypto incentives.
+- Human + machine collaboration can significantly enhance investment performance.
+:::
 
-# Push any leftover weight to the group index
-for each group:
-    if backlog[group] > 0:
-        idx := index_for_group(group)
-        w_ai[idx] += backlog[group]
 
-project w_ai onto the simplex
-```
+## Thank You!
 
-## Performance Measurement – Dollar Alpha
+- Questions? Comments?
 
-Let Rᵐᵢ,𝑞 be fund i’s gross return from observed holdings in quarter q.  
-Let Rᵇᵢ,𝑞 be the corresponding DGTW benchmark return (same weights, matched groups).
-
-Dollar alpha (human):
-
-Vᵢ,𝑞 = Assetsᵢ,𝑞−1 (Rᵐᵢ,𝑞 − Rᵇᵢ,𝑞)
-
-Incremental dollars (AI over human):
-
-Zᵢ,𝑞 = Assetsᵢ,𝑞−1 (Rᴬᴵᵢ,𝑞 − Rᵐᵢ,𝑞)
-
-Aggregate to lifetime averages per fund, then time-weighted across funds.
-
-Sharpe Ratio (Definition & Use)
-
-For fund i with quarterly excess returns ERᵢ,𝑡 = Rᵢ,𝑡 − Rʳᶠₜ:
-
-Sharpeᵢ = ( mean(ERᵢ) / σ(ERᵢ,𝑡) ) × √16
-
-Compare paired Sharpe differences:
-
-ΔSharpeᵢ = Sharpeᵢᴬᴵ − Sharpeᵢᴴᵘᵐᵃⁿ
-
-## Findings:
-
-- Avg human Sharpe ≈ 0.47.  
-- Avg paired difference (AI-modified − human) ≈ +0.17 (t ≈ 69).  
-- ~95% of funds show a positive Sharpe improvement.  
-- Similar uplifts for AI-only.  
-
-## Risk Adjustments & Robustness
-
-- Factor alphas: FF5 + momentum, and with mispricing factors → AI outperformance persists or widens.  
-- Sharpe and CDF dominance: AI nearly first-order stochastically dominates human quarterly performance.  
-- Transaction costs:
-  - Implied quarterly turnover: Human ~20%; AI-modified ~52% stocks + 3% indices; AI-only ~40% stocks + 10% indices.  
-  - Institutional cost estimates (≈13–37 bps per stock trade) → AI still dominates net of costs.  
-- Benchmarks: Results hold when restricting to funds with verified size/value benchmarks and style-consistent holdings.  
-- Incentives: Results hold for direct-sold (sophisticated) funds and for funds flagged as quantitative.  
-
-## Why Human + Machine?
-
-- Public-signal extraction is a skill; AI scales nonlinearity & interactions across simple signals.  
-- Constrained, style-consistent AI can deliver practical outperformance (not just paper alpha).  
-
-## Hybrid process:  
-- Humans: mandate, domain context, governance, risk/compliance, private info where valuable.  
-- Machines: breadth, speed, nonlinearity, consistent execution, monitoring, “what-if”s.  
-
-## Implementation Tips (Practitioner Slide)
-
-- Data ops: point-in-time joins; strict lags; feature health checks; backtest hygiene (no leakage).  
-- Modeling: rolling expanding windows; time-series CV; monitor drift; ensemble RF/NN ranks.  
-- PM integration: within-style candidate pools; depth caps; turnover budgets; quarterly (or monthly) cadence; explicit payout/compounding policy.  
-- Risk: side-by-side factor loads; pre/post-trade limits; stress; transaction-cost controls.  
-
-## Limitations & Scope
-
-- Results are partial-equilibrium (single fund adopting AI). Widespread adoption → greater price impact, lower marginal gains.  
-- Lower-bound cost estimate: conservative sizing; quarterly payout prevents compounding of AI gains; RF today < RF+NN tomorrow.  
-- Private information could still add value; study quantifies public-info processing costs.  
-
-## Takeaways
-
-- Managers left economically large returns on the table by not further processing public data.  
-- Human + machine collaboration substantially improves risk-adjusted performance under real constraints.  
-- Challenges the idea that public info is “free” to use; processing costs are material.  
-- As AI improves, the shadow price of public information likely rises.  
