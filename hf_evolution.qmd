@@ -277,19 +277,409 @@ flowchart LR
 # Unbundling
 
 
+## Introduction
+
+- Traditional hedge funds: small teams, opaque processes, high fees  
+- New paradigm: **decentralized hedge funds**  
+  - Crowdsourced intelligence  
+  - Blockchain-based incentives  
+  - Global participation  
+- Case studies: **Numerai**, **Yiedl**, **CrowdCent**
+
+---
+
+## Numerai – Overview
+
+- San Francisco–based hedge fund (founded 2015)  
+- **Crowdsources stock market predictions** from global data scientists  
+- Uses a **meta-model**: ensemble of community models aggregated into live trading strategy  
+- Mission: *“solve the hardest problem in finance”* with diverse, anonymized datasets  
+
+---
+
+## Numerai – Community & Competitions
+
+- Weekly **data science tournaments**  
+- Participants submit ML predictions on anonymized market data  
+- Scored on correlation with actual returns  
+- **Staking with NMR tokens**:  
+  - Stake NMR = confidence in predictions  
+  - Rewards for accuracy, penalties for errors  
+
+---
+
+## Numerai – Data & Roles
+
+- **Company:** curates data, manages fund, constructs stake-weighted meta-model  
+- **Community:** builds models, submits predictions, stakes tokens  
+- Data: anonymized, obfuscated stock/market datasets  
+- Company executes trades; community generates intelligence  
+
+---
+
+## Numerai – Role of Crypto
+
+- **Numeraire (NMR):** first hedge-fund-issued cryptocurrency  
+- Staking aligns incentives: accurate models gain rewards, inaccurate lose stake  
+- All payouts and stakes occur via Ethereum smart contracts  
+- Supports **trustless, global participation**  
+
+---
+
+## Yiedl – Overview
+
+- Founded 2023, fully **DAO-based hedge fund**  
+- Mission: *replace fund managers with blockchain data science tournaments*  
+- Operates via **on-chain vaults** on Optimism + Synthetix  
+- Managed by token holders, not a centralized GP  
+
+---
+
+## Yiedl – Community & Competitions
+
+- Weekly **crypto-asset prediction tournaments**  
+- Participants forecast asset returns, stake Yiedl tokens  
+- Predictions stored/encrypted on IPFS & blockchain  
+- Smart contracts auto-reward/penalize based on accuracy  
+- Two tracks:  
+  - **Neutral vault:** rank assets for market-neutral strategy  
+  - **UpDown vault:** propose portfolio weights  
+
+---
+
+## Yiedl – Data & Roles
+
+- **Data:** curated decade-long crypto datasets (prices, on-chain metrics, sentiment)  
+- **Community:** builds predictive models, stakes tokens, governs DAO  
+- **Company/DAO:** develops infrastructure, aggregates predictions, executes trades via smart contracts  
+- Division: community = *what to trade*, DAO = *how to implement*  
+
+---
+
+## Yiedl – Role of Crypto
+
+- **YIEDL token:**  
+  - Staking in competitions  
+  - Governance (DAO voting)  
+  - Rewards for accurate predictions  
+- All trades executed via DeFi protocols (Synthetix)  
+- On-chain fund = transparent, auditable, permissionless  
+
+---
+
+## CrowdCent – Overview
+
+- Hybrid crowdsourced investment platform (2022–2023)  
+- Combines **fundamental analysts + data scientists**  
+- Mission: *democratize asset management with human + machine intelligence*  
+- “Next-generation of investing: decentralized, systematized, democratized”  
+
+---
+
+## CrowdCent – Community & Competitions
+
+- **Analysts:** share investment theses (e.g. via SumZero)  
+- **Data Scientists:** join open ML challenges to evaluate ideas  
+- Examples:  
+  - **Hyperliquid Challenge:** rank crypto assets by 10–30d returns  
+  - **Equity NLP Challenge:** analyze analyst reports for predictive alpha  
+- Leaderboards, percentile scoring, meta-model aggregation  
+
+---
+
+## CrowdCent – Data & Roles
+
+- **Data:**  
+  - Fundamental research from SumZero (analyst reports, ratings)  
+  - Market + crypto data, engineered features  
+- **Community:**  
+  - Analysts generate qualitative ideas  
+  - Data scientists build quantitative models  
+- **Company:** runs competitions, integrates data, manages portfolio construction & execution  
+
+---
+
+## CrowdCent – Role of Crypto
+
+- No native token (as of 2025)  
+- **Crypto as an asset class:** community builds crypto strategies (Hyperliquid challenge)  
+- **Integration with crypto projects:**  
+  - Fund that stakes in Numerai’s NMR ecosystem  
+  - Bridges decentralized funds together  
+- Less “on-chain” than Yiedl, but embraces crypto markets and ethos  
+
+---
+
+## Conclusion
+
+- **Numerai:** pioneered crypto-incentivized crowdsourced hedge fund  
+- **Yiedl:** DAO-based, on-chain hedge fund built entirely with DeFi  
+- **CrowdCent:** blends human fundamental research with ML and crypto strategies  
+- Common threads:  
+  - Community-driven intelligence  
+  - Machine learning aggregation  
+  - Cryptocurrency as incentive + infrastructure  
+- Future hedge funds: **open, decentralized, global**  
+
 
 # Human + Machine
 
-## Types of Collaboration
-- Vertical
-- Horizontal
-- "Bayesian"
 
-## Vertical
+## Types of Collaboration
+- Horizontal
+- Vertical
 
 ## Horizontal
 
-## Bayesian
+- Human forecasts concatenated with machine forecasts
+- Fit model on both
+
+## Vertical
+
+- Stepwise: human first, machine second (or vice versa)
 
 
+## Motivation
 
+- Canonical view: “Public” info is free and instantly priced (EMH).
+- Reality: Converting public data → stock picks is **costly** (analysts, data prep, modeling, infra, time).
+- Research question: **How large are the *economic* costs of processing public information?**
+
+## Study Design (High Level)
+
+- Population: **3,337** active, diversified U.S. equity mutual funds (1990–2020).
+- Build an **AI analyst** that uses *only* public data and **realistic constraints**.
+- Compare:
+  - Human manager (actual holdings)
+  - **AI-modified** (hybrid; selective replacements)
+  - **AI-only** (full replacement within style constraints)
+- Measure: **Dollar alpha** and **Sharpe**; treat forgone gains as **lower bound** of managers’ marginal info-processing costs.
+
+## Key Findings (Punchline)
+
+- **AI-modified**: +**$17.1M** incremental **per quarter** vs. human; **~93%** of managers outperformed over their lifetimes.
+- **AI-only**: +**$17.2M** incremental per quarter; ~**42%** allocated to style indices without hurting results.
+- Sharpe improves materially (details ahead).
+- Results robust to risk models, transaction costs, benchmark identification, and incentive heterogeneity.
+
+## Conceptual Framework
+
+- Investors process info until **marginal cost = marginal gain**.
+- If AI (public info only) can improve a manager’s portfolio under the manager’s constraints, the **forgone gains** represent a **lower-bound** on the manager’s marginal info costs.
+- Human + machine is evaluated **within** fund style/risk/size/liquidity constraints.
+
+## Data Inputs (Public Only)
+
+- **Market** (CRSP): prices, returns (incl. delisting), volatility, beta, liquidity/volume, market cap.
+- **Accounting** (Compustat point-in-time; proper lags): profitability, accruals, leverage, growth, etc.
+- **Analysts** (I/B/E/S): consensus EPS, recommendations, price targets (careful timing; summary files).
+- **Text** (EDGAR): 10-K/Q and 8-K tone/complexity/uncertainty (point-in-time release).
+- **Macro** (Welch–Goyal set): term/default spreads, D/P, E/P, etc.
+- **Ratings**: S&P long-term issuer ratings.
+- ~**170** features; winsorization by feature type; point-in-time construction to avoid look-ahead.
+
+## Return Target & Benchmarking
+
+- Predict **quarter-ahead** stock returns:
+  - Preferred: **DGTW benchmark-adjusted** returns (size × B/M × momentum groups).
+  - Also considered: excess returns vs. risk-free.
+- Portfolio construction and evaluation are **within DGTW groups** to preserve style.
+
+## ML Pipeline (Pseudocode)
+
+```pseudo
+# =========================
+# FEATURES & LABELS
+# =========================
+for each month t in 1980..2020:
+    X_t := features available by end of t-1 (market, accounting (lagged), IBES, EDGAR text, macro, ratings)
+    y_t := realized stock return over t+1..t+3 (DGTW-adjusted preferred)
+
+# Preprocess within training folds only:
+# - Winsorize features (type-specific rules)
+# - Impute missing (numeric: quarter-mean; categorical/flags: 0)
+# - Standardize numeric using train stats
+
+# =========================
+# ROLLING EXPANDING TRAINING
+# =========================
+for prediction year Y in 1986..2020:
+    train_period := 1980-01 .. (Y-1)-10  # end in Oct Y-1 to avoid quarter overlap
+    # time-series cross-validated randomized hyperparameter search (RF depth, trees, min split/leaf, mtry)
+    fit RandomForest_Y on train_period to minimize validation MSE
+
+    # =========================
+    # PREDICT MONTHLY IN YEAR Y
+    # =========================
+    for each month t in Y:
+        ŷ_t := RandomForest_Y.predict(X_t)
+        # also compute within-DGTW ranks/deciles for portfolio rules
+
+# Optionally also fit a Neural Network model; ensemble via average rank to get a small lift.
+```
+
+## What Drives Predictions?
+
+Permutation importance analysis shows simple features are highly influential:
+
+- Market value, dollar volume, trading activity, earnings-forecast signals.  
+- RF captures nonlinear interactions among simple predictors.  
+
+## Portfolio Construction – Shared Constraints
+
+- No shorting; quarterly rebalance only.  
+- Within-style swaps: replacements must come from the same DGTW group.  
+- Depth/liquidity: cap any single holding to ≤ 20% of the stock’s market cap (clip and keep overflow).  
+- No duplicate replacements (“without replacement” within a fund/quarter).  
+- Payout convention: AI’s incremental gain is paid out quarterly so human and AI start next quarter with equal AUM (conservative for AI in dollars).  
+
+## AI-Modified (Hybrid) – Pseudocode
+
+```pseudo
+inputs:
+  w_h[j]      # human start-of-quarter weight for stock j
+  g[j]        # DGTW group of stock j
+  decile[j]   # predicted decile within g[j] (1=worst ... 10=best)
+  ŷ[j]        # predicted DGTW-adjusted return
+  NAV         # fund net asset value at start of quarter
+
+initialize:
+  w_ai := w_h
+  used := ∅    # prevent duplicate use of replacement names
+
+# Keep strong human picks
+for j in holdings sorted by descending w_h[j]:
+    if decile[j] == 10:
+        used.add(j)
+
+# Attempt upgrades for others (largest positions first)
+for j in holdings sorted by descending w_h[j]:
+    if decile[j] in 1..9:
+        group := g[j]
+        C := { s in group | decile[s] == 10 and s ∉ used }
+        if C ≠ ∅:
+            # choose best candidate
+            k := argmax_s∈C ŷ[s]
+            target_value := w_h[j] * NAV
+            max_value := 0.20 * market_cap(k)
+            delta_value := min(target_value, max_value)
+            w_ai[k] +=  delta_value / NAV
+            w_ai[j] -=  delta_value / NAV
+            used.add(k)
+
+# Replace remaining bottom-decile names with the group index
+for j in holdings:
+    if decile[j] == 1 and w_ai[j] > 0:
+        idx := index_for_group(g[j])
+        w_ai[idx] += w_ai[j]
+        w_ai[j]   = 0
+
+# Normalize / clean
+project w_ai onto the simplex (weights ≥ 0, sum = 1)
+```
+
+## AI-Only (Full Replacement) – Pseudocode
+
+```pseudo
+inputs as above
+initialize:
+  w_ai := 0
+  used := ∅
+  backlog[group] := 0 for all groups
+
+# Map each human slot to a top-decile name in the same group
+for j in human holdings sorted by descending w_h[j]:
+    group := g[j]
+    C := { s in group | decile[s] == 10 and s ∉ used }
+    if C ≠ ∅:
+        k := argmax_s∈C ŷ[s]
+        target_value := w_h[j] * NAV
+        max_value := 0.20 * market_cap(k)
+        delta_value := min(target_value, max_value)
+        w_ai[k] += delta_value / NAV
+        used.add(k)
+        # any leftover because of cap stays to be assigned:
+        if delta_value < target_value:
+            backlog[group] += (target_value - delta_value) / NAV
+    else:
+        backlog[group] += w_h[j]
+
+# Push any leftover weight to the group index
+for each group:
+    if backlog[group] > 0:
+        idx := index_for_group(group)
+        w_ai[idx] += backlog[group]
+
+project w_ai onto the simplex
+```
+
+## Performance Measurement – Dollar Alpha
+
+Let Rᵐᵢ,𝑞 be fund i’s gross return from observed holdings in quarter q.  
+Let Rᵇᵢ,𝑞 be the corresponding DGTW benchmark return (same weights, matched groups).
+
+Dollar alpha (human):
+
+Vᵢ,𝑞 = Assetsᵢ,𝑞−1 (Rᵐᵢ,𝑞 − Rᵇᵢ,𝑞)
+
+Incremental dollars (AI over human):
+
+Zᵢ,𝑞 = Assetsᵢ,𝑞−1 (Rᴬᴵᵢ,𝑞 − Rᵐᵢ,𝑞)
+
+Aggregate to lifetime averages per fund, then time-weighted across funds.
+
+Sharpe Ratio (Definition & Use)
+
+For fund i with quarterly excess returns ERᵢ,𝑡 = Rᵢ,𝑡 − Rʳᶠₜ:
+
+Sharpeᵢ = ( mean(ERᵢ) / σ(ERᵢ,𝑡) ) × √16
+
+Compare paired Sharpe differences:
+
+ΔSharpeᵢ = Sharpeᵢᴬᴵ − Sharpeᵢᴴᵘᵐᵃⁿ
+
+## Findings:
+
+- Avg human Sharpe ≈ 0.47.  
+- Avg paired difference (AI-modified − human) ≈ +0.17 (t ≈ 69).  
+- ~95% of funds show a positive Sharpe improvement.  
+- Similar uplifts for AI-only.  
+
+## Risk Adjustments & Robustness
+
+- Factor alphas: FF5 + momentum, and with mispricing factors → AI outperformance persists or widens.  
+- Sharpe and CDF dominance: AI nearly first-order stochastically dominates human quarterly performance.  
+- Transaction costs:
+  - Implied quarterly turnover: Human ~20%; AI-modified ~52% stocks + 3% indices; AI-only ~40% stocks + 10% indices.  
+  - Institutional cost estimates (≈13–37 bps per stock trade) → AI still dominates net of costs.  
+- Benchmarks: Results hold when restricting to funds with verified size/value benchmarks and style-consistent holdings.  
+- Incentives: Results hold for direct-sold (sophisticated) funds and for funds flagged as quantitative.  
+
+## Why Human + Machine?
+
+- Public-signal extraction is a skill; AI scales nonlinearity & interactions across simple signals.  
+- Constrained, style-consistent AI can deliver practical outperformance (not just paper alpha).  
+
+## Hybrid process:  
+- Humans: mandate, domain context, governance, risk/compliance, private info where valuable.  
+- Machines: breadth, speed, nonlinearity, consistent execution, monitoring, “what-if”s.  
+
+## Implementation Tips (Practitioner Slide)
+
+- Data ops: point-in-time joins; strict lags; feature health checks; backtest hygiene (no leakage).  
+- Modeling: rolling expanding windows; time-series CV; monitor drift; ensemble RF/NN ranks.  
+- PM integration: within-style candidate pools; depth caps; turnover budgets; quarterly (or monthly) cadence; explicit payout/compounding policy.  
+- Risk: side-by-side factor loads; pre/post-trade limits; stress; transaction-cost controls.  
+
+## Limitations & Scope
+
+- Results are partial-equilibrium (single fund adopting AI). Widespread adoption → greater price impact, lower marginal gains.  
+- Lower-bound cost estimate: conservative sizing; quarterly payout prevents compounding of AI gains; RF today < RF+NN tomorrow.  
+- Private information could still add value; study quantifies public-info processing costs.  
+
+## Takeaways
+
+- Managers left economically large returns on the table by not further processing public data.  
+- Human + machine collaboration substantially improves risk-adjusted performance under real constraints.  
+- Challenges the idea that public info is “free” to use; processing costs are material.  
+- As AI improves, the shadow price of public information likely rises.  

@@ -1,1 +1,1 @@
-quarto preview /home/jlarkin/hedge_fund_evolution/hf_evolution.qmd --no-browser --no-watch-inputs --to html
+quarto preview /home/jlarkin/hedge_fund_evolution/hf_evolution.qmd --no-browser --no-watch-inputs
