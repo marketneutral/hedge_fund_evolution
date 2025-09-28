@@ -44,7 +44,7 @@ Managing Director at **Columbia Investment Management Co., LLC**, generalist all
 
 . . .
 
-This presentation is available at [github.com/marketneutral/hedge_fund_evolution](github.com/marketneutral/hedge_fund_evolution).
+This presentation is available at [github.com/marketneutral/hedge_fund_evolution](https://github.com/marketneutral/hedge_fund_evolution).
 
 ## What Evolution?
 
@@ -55,19 +55,33 @@ Two trends
 
 
 
-# Theory
+# Background & Theory
+
+## What is a model-driven forecast? {.smaller}
+::: {.incremental}
+- Fit a model $f$ to past data by minimizing prediction error:
+$$
+\min_f \sum_t L\big(y_t, f(X_t)\big)
+$$
+
+- Use $f$ to predict future outcomes: $\hat{y}_k = f(X_k), \quad k > t$
+
+- *Inputs* $X_t$: features at time $t$ (e.g., momentum, valuation, sentiment)  
+- *Target* $y_t$: what we want to predict (e.g., next-week return)  
+- *Model* $f$: linear regression, random forest, neural net  
+- *Goal*: $\hat{y}_k \approx y_k$ on *new, unseen* data  
+- *Tasks*: *regression* (continuous $y$) or *classification* (discrete $y$) 
+:::
 
 ## Condorcet Jury Theorem (1785)
-- The *Condorcet Jury Theorem* states that if each member of a jury has a probability greater than 1/2 of making the correct decision, then as the number of jurors increases, the probability that the majority decision is correct approaches 1.
-
+::: {.incremental}
+- If each juror has probability > 1/2 of being correct, and errors are independent, then as the number of jurors n increases, the probability that the majority decision is correct approaches 1.
 $$
-P(\text{majority correct}) \to 1 \text{ as } n \to \infty \\
-\iff \text{independence of errors}
+P(\text{majority correct}) \to 1 \quad \text{as } n \to \infty
 $$
 
-. . .
-
-- e.g., `sklearn.ensemble.VotingClassifier` relies on this result.
+- e.g., `sklearn.ensemble.VotingClassifier` combines multiple models, but independence/diversity of errors matters.
+:::
 
 ## Boosting Weak Learners (1988)
 ::: {.incremental}
@@ -105,41 +119,21 @@ $$
 - Combine several different models by training a **meta-model** on their predictions.
   - Train **M** independent base models $(f_1, \dots, f_M)$ (e.g., linear model, tree, neural net, etc.).
   - Using an appropriate cross validation scheme, collect **out-of-fold** predictions for each training example to avoid leakage.
-  - Train a meta-model $(g)$ on these predictions (optionally with the original features).
+  - Train a meta-model, $g$, on these predictions (optionally with the original features).
 $$
 \hat{y}(x) = g\!\big(f_1(x),\, f_2(x),\, \dots,\, f_M(x)\big)
 $$
 :::
 
-## Ensemble Methods Summary
+## Ensemble Methods Summary {.smaller}
 ::: {.incremental}
-- *Voting*: combine models, majority vote.
-- *Boosting*: **sequentially** build models, each correcting the previous.
-- *Stacking*: combine diverse models, leveraging their strengths.
+- Ensembles reduce variance, improve robustness, and often yield better performance than individual models.
+- *Voting* combines models by majority vote.
+- *Boosting* **sequentially** builds models, each correcting the previous.
+- *Stacking* combines diverse models, leveraging their strengths.
   - *Model Averaging* is a special case of stacking: the meta-model is a weighted linear sum.
+- These approaches can be combined (e.g., stacking linear model into boosted tree).
 :::
-
-## Stacking into Boosting
-- Why not both?
-```{python}
-#| eval: false
-#| echo: true
-#| code-line-numbers: "|5|8,9,10,11"
-cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
-
-lin = Pipeline([
-  ("scaler", StandardScaler()),
-  ("lr", LogisticRegression(max_iter=1000))
-])
-
-stack = StackingClassifier(estimators=[("lin", lin)],
-  final_estimator=LGBMClassifier(),
-  stack_method="predict_proba", passthrough=True, cv=cv
-)
-
-stack.fit(X_train, y_train)
-y_pred = stack.predict(X_test)
-```
 
 
 ## The Dunbar Number (1992)
@@ -148,15 +142,6 @@ y_pred = stack.predict(X_test)
 - Max human maintainable stable relationships ≈ 150
 - Limit of trust & cohesion
 - Beyond limit → silos, slow decisions, culture strain
-:::
-
-## Dunbar cont'd: How Hedge Funds Manage It
-::: {.incremental}
-- 👉 Scale by respecting Dunbar  
-  - *Pods* → small teams, central risk  
-  - *Quant* → structure as an assembly line  
-  - *Lean* → keep a cap on size, preserve culture  
-  - *Bureaucracy* → heavy process to scale  
 :::
 
 ## Wisdom of Crowds (2004)
@@ -198,15 +183,24 @@ y_pred = stack.predict(X_test)
 
 ## Theory Takeaways
 ::: {.incremental}
-- Successes in machine learning demonstrate the critical importance of ensemble methods.
-- The Common Task Framework has driven scientific progress at scale.
-- Social science principles can inform on the design of incentives and processes to harness collective intelligence.
+- Successes in machine learning demonstrate the value of ensemble methods.
+- The Common Task Framework (i.e., competitive data science) has driven scientific progress at scale.
+- Social science principles can inform on the design of organizations and incentives to harness collective intelligence.
 :::
 
 # The Traditional Hedge Fund
 
+## How does a hedge fund scale?
+::: {.incremental}
+- 👉 By respecting Dunbar.  
+  - *Pods* → small teams, central risk  
+  - *Quant* → structure as an assembly line  
+  - *Lean* → keep a cap on size, preserve culture  
+  - *Bureaucracy* → heavy process to scale  
+:::
 
-## Quant Equity Workflow
+
+## Quant Hedge Fund Workflow
 ::: {.incremental}
 - Larkin, Jonathan R., "A Professional Quant Equity Workflow", *Quantopian Blog*, 2016, [link.](https://github.com/marketneutral/lectures/blob/master/A%20Professional%20Quant%20Equity%20Workflow.pdf)
 - Separate teams are focused along an assembly line
@@ -218,7 +212,7 @@ y_pred = stack.predict(X_test)
   - Execution
 :::
 
-## Quant Equity Workflow
+## Quant Hedge Fund Workflow
 
 ::: columns
 ::: column
@@ -232,7 +226,7 @@ y_pred = stack.predict(X_test)
 
 
 
-## Quant Equity Workflow
+## Quant Hedge Fund Workflow
 
 ```{mermaid}
 %%| fig-height: 4
@@ -270,9 +264,7 @@ flowchart LR
 - Craft four simple alphas (momentum, reversal, quality, value)
 - Create a target (forward 5d return demeaned)
 - Combine alphas with linear model
-- Use `cvxportfolio` machinery for risk model, t-cost model, optimization
-- [Cvxportfolio repo on github](https://github.com/cvxgrp/cvxportfolio)
-- Boyd, Stephen, et al. "Multi‑Period Trading via Convex Optimization." *Foundations and Trends in Optimization*, vol. 3, no. 1, 2017, pp. 1–76.
+- Use [`cvxportfolio`](https://github.com/cvxgrp/cvxportfolio) machinery for risk model, t-cost model, optimization (see Boyd, Stephen, et al. "Multi‑Period Trading via Convex Optimization." *Foundations and Trends in Optimization*, vol. 3, no. 1, 2017, pp. 1–76.)
 
 
 # Unbundling
