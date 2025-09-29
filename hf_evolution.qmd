@@ -282,7 +282,7 @@ flowchart LR
 
 ## Numerai
 
-- `https://numer.ai/`
+- [`https://numer.ai/`](https://numer.ai/)
 - San Francisco–based hedge fund (founded 2015)  
 - **Crowdsources stock market predictions** from global data scientists  
 - Uses a **meta-model**: ensemble of community models aggregated into live trading strategy  
@@ -323,7 +323,7 @@ flowchart LR
 
 ## Yiedl
 
-- `https://yiedl.ai/`
+- [`https://yiedl.ai/`](https://yiedl.ai/)
 - Founded 2023, fully **DAO-based hedge fund**  
 - Mission: *replace fund managers with blockchain data science tournaments*  
 - Operates via **on-chain vaults** on Optimism + Synthetix  
@@ -369,7 +369,7 @@ flowchart LR
 ## CrowdCent {.smaller}
 ::: columns
 ::: column
-- `https://crowdcent.com/`
+- [`https://crowdcent.com/`](https://crowdcent.com/)
 - Hybrid crowdsourced investment platform (2022–2023)  
 - Combines **fundamental analysts + machine learning**  
 - Mission: *democratize asset management with human + machine intelligence*  
