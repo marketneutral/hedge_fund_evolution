@@ -10,7 +10,7 @@ format:
     menu: false
     slide-number: c/t
 theme:
-  - white
+  - moon
 ---
 
 ## Disclaimer
@@ -272,21 +272,23 @@ flowchart LR
 
 ## Introduction
 
-- Traditional hedge funds: small teams, opaque processes, high fees  
 - New paradigm: **decentralized hedge funds**  
-  - Crowdsourced intelligence  
+  - Crowdsourced intelligence
   - Blockchain-based incentives  
-  - Global participation  
-- Case studies: **Numerai**, **Yiedl**, **CrowdCent**
+  - Decentralized, global participation
+- Examples: **Numerai**, **Yiedl**, **CrowdCent**
 
 ---
 
-## Numerai – Overview
+## Numerai
 
+- `https://numer.ai/`
 - San Francisco–based hedge fund (founded 2015)  
 - **Crowdsources stock market predictions** from global data scientists  
 - Uses a **meta-model**: ensemble of community models aggregated into live trading strategy  
 - Mission: *“solve the hardest problem in finance”* with diverse, anonymized datasets  
+
+![](https://numer.ai/fund/img/numerai_logo.png){.absolute top=0 right=0 width="30%"}
 
 ---
 
@@ -319,12 +321,16 @@ flowchart LR
 
 ---
 
-## Yiedl – Overview
+## Yiedl
 
+- `https://yiedl.ai/`
 - Founded 2023, fully **DAO-based hedge fund**  
 - Mission: *replace fund managers with blockchain data science tournaments*  
 - Operates via **on-chain vaults** on Optimism + Synthetix  
 - Managed by token holders, not a centralized GP  
+
+![](https://yiedl.ai/yiedl.BDXiDBWa.png){.absolute top=0 right=0 width="15%"}
+
 
 ---
 
@@ -360,23 +366,28 @@ flowchart LR
 
 ---
 
-## CrowdCent – Overview
-
+## CrowdCent {.smaller}
+::: columns
+::: column
+- `https://crowdcent.com/`
 - Hybrid crowdsourced investment platform (2022–2023)  
-- Combines **fundamental analysts + data scientists**  
+- Combines **fundamental analysts + machine learning**  
 - Mission: *democratize asset management with human + machine intelligence*  
-- “Next-generation of investing: decentralized, systematized, democratized”  
+- “Next-generation of investing: decentralized, systematized, democratized”
+:::
 
----
+::: column
+![](https://storage.googleapis.com/crowdcent-challenge-static/images/png/flywheels.png){width="110%"}
+:::
+:::
+
 
 ## CrowdCent – Community & Competitions
 
-- **Analysts:** share investment theses (e.g. via SumZero)  
-- **Data Scientists:** join open ML challenges to evaluate ideas  
-- Examples:  
-  - **Hyperliquid Challenge:** rank crypto assets by 10–30d returns  
-  - **Equity NLP Challenge:** analyze analyst reports for predictive alpha  
-- Leaderboards, percentile scoring, meta-model aggregation  
+- **Fundamental Analysts:** share investment theses (e.g. via SumZero)
+- Internal **data scientists** build ML models on analyst ideas + market data -> portfolio  
+- **Hyperliquid Challenge:** rank crypto assets by 10–30d returns 
+  - Leaderboards, percentile scoring, meta-model aggregation  
 
 ---
 
@@ -387,8 +398,7 @@ flowchart LR
   - Market + crypto data, engineered features  
 - **Community:**  
   - Analysts generate qualitative ideas  
-  - Data scientists build quantitative models  
-- **Company:** runs competitions, integrates data, manages portfolio construction & execution  
+- **Company:** runs competitions, integrates data, builds NLP models, constructs portfolios  
 
 ---
 
@@ -399,11 +409,10 @@ flowchart LR
 - **Integration with crypto projects:**  
   - Fund that stakes in Numerai’s NMR ecosystem  
   - Bridges decentralized funds together  
-- Less “on-chain” than Yiedl, but embraces crypto markets and ethos  
 
 ---
 
-## Conclusion
+## Conclusion {.smaller}
 
 - **Numerai:** pioneered crypto-incentivized crowdsourced hedge fund  
 - **Yiedl:** DAO-based, on-chain hedge fund built entirely with DeFi  
