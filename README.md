@@ -8,7 +8,9 @@ This presentation is for informational purposes only and reflects my personal vi
 
 This repo is made available under the APACHE LICENSE, VERSION 2.0 (the "License"). As noted in the License, this repo is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 
-This presentation was created using [Quarto](https://quarto.org/). The final rendered self-contained `revealjs` presentation is above as `docs/hf_evolution.html`. **If you are viewing this repo on GitHub, you must download the `hf_evolution.html` file to view it properly.** To reproduce the document from the source `hf_evolution.qmd`, follow the instructions below.
+The rendered presentation deck is viewable at [https://marketneutral.github.io/hedge_fund_evolution/hf_evolution.html](https://marketneutral.github.io/hedge_fund_evolution/hf_evolution.html).
+
+This presentation was created using [Quarto](https://quarto.org/). The final rendered self-contained `revealjs` presentation is above as `docs/hf_evolution.html`. To reproduce the document from the source `hf_evolution.qmd`, follow the instructions below.
 
 
 ## Install `quarto`
