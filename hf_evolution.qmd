@@ -259,13 +259,13 @@ flowchart LR
     EXEC(Execution)
 ```
 
-## Workflow: Minimal Non-Trivial Implementation
+<!-- ## Workflow: Minimal Non-Trivial Implementation
 
 - Craft four simple alphas (momentum, reversal, quality, value)
 - Make quadratic and interaction features
 - Create a target (forward 5d return demeaned)
 - Combine alphas with linear model
-- Use [`cvxportfolio`](https://github.com/cvxgrp/cvxportfolio) machinery for risk model, t-cost model, optimization (see Boyd, Stephen, et al. "Multi‑Period Trading via Convex Optimization." *Foundations and Trends in Optimization*, vol. 3, no. 1, 2017, pp. 1–76.)
+- Use [`cvxportfolio`](https://github.com/cvxgrp/cvxportfolio) machinery for risk model, t-cost model, optimization (see Boyd, Stephen, et al. "Multi‑Period Trading via Convex Optimization." *Foundations and Trends in Optimization*, vol. 3, no. 1, 2017, pp. 1–76.) -->
 
 
 # Unbundling
