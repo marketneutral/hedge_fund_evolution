@@ -211,8 +211,6 @@ alpha = alpha.apply(lambda row:
 # alpha is now ready for use in cvxportfolio
 # the shape of alpha is (dates, assets)
 
-import pdb; pdb.set_trace()
-
 rf = ReturnsFromDF(alpha)
 gamma = 3.0
 kappa = 0.05

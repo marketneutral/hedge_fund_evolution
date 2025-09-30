@@ -262,6 +262,7 @@ flowchart LR
 ## Workflow: Minimal Non-Trivial Implementation
 
 - Craft four simple alphas (momentum, reversal, quality, value)
+- Make quadratic and interaction features
 - Create a target (forward 5d return demeaned)
 - Combine alphas with linear model
 - Use [`cvxportfolio`](https://github.com/cvxgrp/cvxportfolio) machinery for risk model, t-cost model, optimization (see Boyd, Stephen, et al. "Multi‑Period Trading via Convex Optimization." *Foundations and Trends in Optimization*, vol. 3, no. 1, 2017, pp. 1–76.)
@@ -272,14 +273,13 @@ flowchart LR
 
 ## Introduction
 ::: {.incremental}
-- New paradigm: **decentralized hedge funds**  
+- New paradigm: **decentralized hedge funds** → part of the "workflow" is external
   - Crowdsourced intelligence
-  - Blockchain-based incentives  
+  - Blockchain-based incentives
   - Decentralized, global participation
-- Examples: **Numerai**, **Yiedl**, **CrowdCent**
+- Examples: **Numerai**, **Yiedl**, **CrowdCent**, **CrunchDAO**, et al.
 :::
 
----
 
 ## Numerai
 
@@ -323,7 +323,6 @@ flowchart LR
 ---
 
 ## Yiedl
-
 - [`https://yiedl.ai/`](https://yiedl.ai/)
 - Founded 2023, fully **DAO-based hedge fund**  
 - Mission: *replace fund managers with blockchain data science tournaments*  
@@ -332,20 +331,22 @@ flowchart LR
 
 ![](https://yiedl.ai/yiedl.BDXiDBWa.png){.absolute top=0 right=0 width="15%"}
 
-
----
-
-## Yiedl – Community & Competitions
-
+## Yiedl – Community & Competitions {.smaller}
+::: columns
+::: column
 - Weekly **crypto-asset prediction tournaments**  
-- Participants forecast asset returns, stake Yiedl tokens  
+- Participants forecast returns for 75 crypto assets, stake Yiedl tokens  
 - Predictions stored/encrypted on IPFS & blockchain  
 - Smart contracts auto-reward/penalize based on accuracy  
 - Two tracks:  
   - **Neutral vault:** rank assets for market-neutral strategy  
   - **UpDown vault:** propose portfolio weights  
+:::
+::: column
+![](images/yiedl.PNG){width="80%"}
+:::
+:::
 
----
 
 ## Yiedl – Data & Roles
 
