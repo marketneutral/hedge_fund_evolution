@@ -37,7 +37,7 @@ This presentation is for informational purposes only and reflects my personal vi
 
 ## About Me
 
-Managing Director at **Columbia Investment Management Co., LLC**, generalist allocator, Data Science and Research lead. Formerly CIO at **Quantopian**, Global Head of Equities and **Millennium Management LLC**, and Co-Head of Equity Derivatives Trading at **JPMorgan**.
+Managing Director at **Columbia Investment Management Co., LLC**, generalist allocator, lead Data Science and Research. Formerly CIO at **Quantopian**, Global Head of Equities and **Millennium Management LLC**, and Co-Head of Equity Derivatives Trading at **JPMorgan**.
 
 - X/Twitter [@jonathanrlarkin](https://x.com/jonathanrlarkin)
 - LinkedIn [linkedin.com/in/quantfinance](linkedin.com/in/quantfinance)
@@ -271,12 +271,13 @@ flowchart LR
 
 
 ## Introduction
-
+::: {.incremental}
 - New paradigm: **decentralized hedge funds**  
   - Crowdsourced intelligence
   - Blockchain-based incentives  
   - Decentralized, global participation
 - Examples: **Numerai**, **Yiedl**, **CrowdCent**
+:::
 
 ---
 
@@ -370,8 +371,7 @@ flowchart LR
 ::: columns
 ::: column
 - [`https://crowdcent.com/`](https://crowdcent.com/)
-- Hybrid crowdsourced investment platform (2022–2023)  
-- Combines **fundamental analysts + machine learning**  
+- Crowdsourced investment platform which combines **fundamental analysts + machine learning**  
 - Mission: *democratize asset management with human + machine intelligence*  
 - “Next-generation of investing: decentralized, systematized, democratized”
 :::
@@ -385,8 +385,8 @@ flowchart LR
 ## CrowdCent – Community & Competitions
 
 - **Fundamental Analysts:** share investment theses (e.g. via SumZero)
-- Internal **data scientists** build ML models on analyst ideas + market data -> portfolio  
-- **Hyperliquid Challenge:** rank crypto assets by 10–30d returns 
+- Internal **data scientists:** build ML models on analyst ideas + market data → portfolio  
+- Community **data scientists:** provide forecasts for competitions (e.g. **Hyperliquid Challenge** to rank crypto assets by 10d and 30d returns)
   - Leaderboards, percentile scoring, meta-model aggregation  
 
 ---
@@ -397,7 +397,8 @@ flowchart LR
   - Fundamental research from SumZero (analyst reports, ratings)  
   - Market + crypto data, engineered features  
 - **Community:**  
-  - Analysts generate qualitative ideas  
+  - Fundamental Analysts generate qualitative ideas
+  - Data Scientists build quantitative models, submit predictions 
 - **Company:** runs competitions, integrates data, builds NLP models, constructs portfolios  
 
 ---
@@ -413,7 +414,7 @@ flowchart LR
 ---
 
 ## Conclusion {.smaller}
-
+::: {.incremental}
 - **Numerai:** pioneered crypto-incentivized crowdsourced hedge fund  
 - **Yiedl:** DAO-based, on-chain hedge fund built entirely with DeFi  
 - **CrowdCent:** blends human fundamental research with ML and crypto strategies  
@@ -422,7 +423,7 @@ flowchart LR
   - Machine learning aggregation  
   - Cryptocurrency as incentive + infrastructure  
 - Future hedge funds: **open, decentralized, global**  
-
+:::
 
 # Human + Machine Collaboration
 
@@ -555,4 +556,3 @@ project w_ai onto the simplex (weights ≥ 0, sum = 1)
 ## Thank You!
 
 - Questions? Comments?
-
