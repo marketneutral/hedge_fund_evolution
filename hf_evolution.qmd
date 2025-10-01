@@ -443,7 +443,7 @@ flowchart LR
 
 ---
 
-## CrowdCent – Data & Roles
+## CrowdCent – Data & Roles {.smaller}
 
 - **Data:**  
   - Fundamental research from SumZero (analyst reports, ratings)  
@@ -484,6 +484,9 @@ flowchart LR
 ## Types of Collaboration
 - Horizontal
 - Vertical
+
+![](images/hmcollab.png.png){.absolute bottom=0 right=0 width="65%"}
+
 
 ## Horizontal
 
