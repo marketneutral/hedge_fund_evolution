@@ -1,6 +1,6 @@
 ---
 title: "The Evolution of the Hedge Fund"
-subtitle: "Guest Lecture for MIT 18.5096<br>*Topics in Mathematics with Applications in Finance*"
+subtitle: "Guest Lecture for MIT 18.642<br>*Topics in Mathematics with Applications in Finance*"
 author: "Jonathan Larkin"
 date: "October 2, 2025"
 date-format: "MMMM D, YYYY"
@@ -435,7 +435,6 @@ flowchart LR
 
 
 ## CrowdCent – Community & Competitions
-
 - **Fundamental Analysts:** share investment theses (e.g. via SumZero)
 - Internal **data scientists:** build ML models on analyst ideas + market data → portfolio  
 - Community **data scientists:** provide forecasts for competitions (e.g. **Hyperliquid Challenge** to rank crypto assets by 10d and 30d returns)
@@ -444,7 +443,6 @@ flowchart LR
 ---
 
 ## CrowdCent – Data & Roles {.smaller}
-
 - **Data:**  
   - Fundamental research from SumZero (analyst reports, ratings)  
   - Market + crypto data, engineered features  

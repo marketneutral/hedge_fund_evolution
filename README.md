@@ -1,6 +1,6 @@
 # Hedge Fund Evolution
 ## Unbundling and Human+Machine Collaboration
-### Guest Lecture for MIT 18.5096 *Topics in Mathematics with Applications in Finance*
+### Guest Lecture for MIT 18.642 *Topics in Mathematics with Applications in Finance*
 ### By Jonathan Larkin
 ### October 2, 2025
 
