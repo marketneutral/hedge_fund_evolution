@@ -277,7 +277,7 @@ flowchart LR
   - Crowdsourced intelligence
   - Blockchain-based incentives
   - Decentralized, global participation
-- Examples: **Numerai**, **Yiedl**, **CrowdCent**, **CrunchDAO**, et al.
+- Examples: **Numerai**, **Yiedl**, **CrunchDAO**, **CrowdCent**
 :::
 
 
@@ -307,7 +307,8 @@ flowchart LR
 ## Numerai – Data & Roles
 
 - **Company:** curates data, manages fund, constructs stake-weighted meta-model  
-- **Community:** builds models, submits predictions, stakes tokens  
+- **Community:** builds models, submits predictions, stakes tokens
+- Community data scientists can run models locally and submit via API (keep total control of code and IP)
 - Data: anonymized, obfuscated stock/market datasets  
 - Company executes trades; community generates intelligence  
 
@@ -324,7 +325,7 @@ flowchart LR
 
 ## Yiedl
 - [`https://yiedl.ai/`](https://yiedl.ai/)
-- Founded 2023, fully **DAO-based hedge fund**  
+- Founded 2023, Italy based, fully **DAO-based hedge fund**  
 - Mission: *replace fund managers with blockchain data science tournaments*  
 - Operates via **on-chain vaults** on Optimism + Synthetix  
 - Managed by token holders, not a centralized GP  
@@ -366,7 +367,57 @@ flowchart LR
 - All trades executed via DeFi protocols (Synthetix)  
 - On-chain fund = transparent, auditable, permissionless  
 
+
+## CrunchDAO
+- [`https://crunchdao.com/`](https://crunchdao.com/)
+- Founded 2021, Paris/Dubai/NYC-based, **decentralized data science collective**  
+- Hosts **ML competitions** to solve general business and hard science problems
+- Some challenges in finance
+    - DataCrunch Equity Market Neutral
+    - Venture Capital Portfolio Prediction
+
+![](https://cdn.prod.website-files.com/685017b47dcdacbd34a6867f/68502c383d9a29f1dad265b9_logo.svg){.absolute top=0 right=0 width="15%"}
 ---
+
+## CrunchDAO – Community & Competitions {.smaller}
+::: columns
+::: column
+- **5,000+ contributors**, including ~600 PhDs  
+- Participants submit ML models on anonymized datasets  
+- Scored on withheld data → leaderboards & rankings  
+- **Rewards:**  
+  - Prize pools currently paid in USDC  
+- Community predictions are **aggregated into consensus signals**
+- Meta model used by institutional clients
+:::
+::: column
+![](https://blog.crunchdao.com/wp-content/uploads/2025/06/ad_4nxck8-_qw436szjkmb-3gtasvp_e9-feyngu5euf0_po75jwphkknj8s0sltikhdpn91t51ojvjryh83vm63bcsu6sozkoxd2pqpoplf4mhih7yqyhjbgvayd6dxpksudhqp57jkvw.png){width="90%"}
+:::
+:::
+
+## CrunchDAO – Data & Rules {.smaller}
+
+- **Company/Coordinator:** curates anonymized tabular datasets
+- Features are obfuscated; time-sliced equity & financial data  
+- **Rules:**  
+  - No external data; models must run only on provided features  
+  - Code submissions (not just predictions) in controlled environments (Python/R)  
+  - Compute quotas (e.g. GPU-hour limits) to ensure fairness  
+- **Evaluation:**  
+  - Out-of-sample scoring (e.g. Spearman correlation)  
+  - Transparent leaderboards, confidential models  
+- Reproducibility supported with open docs & starter notebooks
+
+
+## CrunchDAO – Role of Crypto
+
+- Currently, Crypto enables:  
+  - Global, micro-payouts at scale  
+  - Transparent, trustless settlement  
+- In the future, **CRUNCH token:** native incentive + governance unit  
+- **Governance DAO:** contributors shape rules, approve contests, manage treasury  
+
+
 
 ## CrowdCent {.smaller}
 ::: columns
@@ -418,6 +469,7 @@ flowchart LR
 ::: {.incremental}
 - **Numerai:** pioneered crypto-incentivized crowdsourced hedge fund  
 - **Yiedl:** DAO-based, on-chain hedge fund built entirely with DeFi  
+- **CrunchDAO:** decentralized data science collective solving diverse problems; acts as intermediary
 - **CrowdCent:** blends human fundamental research with ML and crypto strategies  
 - Common threads:  
   - Community-driven intelligence  
