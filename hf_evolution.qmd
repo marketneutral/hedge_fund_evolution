@@ -73,13 +73,14 @@ $$
 - *Tasks*: *regression* (continuous $y$) or *classification* (discrete $y$) 
 :::
 
-## Condorcet Jury Theorem (1785)
+## Condorcet Jury Theorem (1785) {.smaller}
 ::: {.incremental}
 - If each juror has probability > 1/2 of being correct, and errors are independent, then as the number of jurors n increases, the probability that the majority decision is correct approaches 1.
 $$
 P(\text{majority correct}) \to 1 \quad \text{as } n \to \infty
 $$
 
+- Generalizes to multi-class classification (not just binary)
 - e.g., `sklearn.ensemble.VotingClassifier` combines multiple models, but independence/diversity of errors matters.
 :::
 
@@ -308,7 +309,7 @@ flowchart LR
 
 - **Company:** curates data, manages fund, constructs stake-weighted meta-model  
 - **Community:** builds models, submits predictions, stakes tokens
-- Community data scientists can run models locally and submit via API (keep total control of code and IP)
+- Community data scientists can run models locally and submit via API (keep control of code and IP)
 - Data: anonymized, obfuscated stock/market datasets  
 - Company executes trades; community generates intelligence  
 
@@ -368,13 +369,15 @@ flowchart LR
 - On-chain fund = transparent, auditable, permissionless  
 
 
-## CrunchDAO
+## CrunchDAO {.smaller}
 - [`https://crunchdao.com/`](https://crunchdao.com/)
 - Founded 2021, Paris/Dubai/NYC-based, **decentralized data science collective**  
 - Hosts **ML competitions** to solve general business and hard science problems
 - Some challenges in finance
     - DataCrunch Equity Market Neutral
     - Venture Capital Portfolio Prediction
+    - "Mid+One" high-frequency trading challenge
+    - ADIA Lab Structural Break Challenge
 
 ![](https://cdn.prod.website-files.com/685017b47dcdacbd34a6867f/68502c383d9a29f1dad265b9_logo.svg){.absolute top=0 right=0 width="15%"}
 ---
@@ -402,7 +405,7 @@ flowchart LR
 - **Rules:**  
   - No external data; models must run only on provided features  
   - Code submissions (not just predictions) in controlled environments (Python/R)  
-  - Compute quotas (e.g. GPU-hour limits) to ensure fairness  
+  - Compute quotas (e.g., GPU-hour limits) to ensure fairness  
 - **Evaluation:**  
   - Out-of-sample scoring (e.g. Spearman correlation)  
   - Transparent leaderboards, confidential models  
@@ -495,12 +498,12 @@ flowchart LR
 ::: {.incremental}
 - Cao, S. S., Jiang, W., Wang, J. L., & Yang, B. (2024). "From Man vs. Machine to Man + Machine: The art and AI of stock analyses. *Journal of Financial Economics*, 160, 103910. https://doi.org/10.1016/j.jfineco.2024.103910
 - Human forecasts taken as 948,054 twelve-month price forecasts (IBES, 2001–2018) for 6,190 firms by 11,341 analysts
-- Features for ML model:Firm/industry fundamentals, textual disclosures (10-K, 10-Q, 8-K), and macroeconomic series (FRED)
-- Target: 12m forward return
+- Features for ML model: Firm/industry fundamentals, textual disclosures (10-K, 10-Q, 8-K), and macroeconomic series (FRED)
+- Target: 12 month forward return
 - Compare performance:
   - *Human only*: analyst forecasts
-  - *Machine only*: an ensemble of ML algorithms (random forests, boosting, LSTM and) trained on the features noted to predict year-ahead stock prices, *excluding any analyst forecast inputs*
-  - *Human + machine*: same ensemble trained on analyst forecasts + features
+  - *Machine only*: an ensemble of ML algorithms (random forests, boosting, LSTM and) trained on the features to predict year-ahead stock prices, *excluding any analyst forecast inputs*
+  - *Human + machine*: same ensemble, trained on *analyst forecasts + features*
 :::
 
 ## Horizontal Example, Results
@@ -549,7 +552,9 @@ for j in holdings sorted by descending w_h[j]:
         used.add(j)
 ```
 
-## Attempt upgrades for others
+## Attempt upgrades for others {.smaller}
+
+- For each human pick that isn’t top-decile, try to replace it with the single best available top-decile stock from the same style group, subject to liquidity limits.
 
 ```{python}
 #| eval: false
@@ -558,7 +563,8 @@ for j in holdings sorted by descending w_h[j]:
 # Attempt upgrades for others (largest positions first)
 for j in holdings sorted by descending w_h[j]:
     if decile[j] in 1..9:
-        group := g[j]
+        group := g[j]   # DGTW group of stock j
+        # find candidates in same group, top decile prediction, not already used
         C := { s in group | decile[s] == 10 and s ∉ used }
         if C ≠ ∅:
             # choose best candidate
@@ -570,13 +576,13 @@ for j in holdings sorted by descending w_h[j]:
             w_ai[j] -=  delta_value / NAV
             used.add(k)
 ```
-## Replace remaining bottom-decile names
-
+## Replace remaining bottom-decile names {.smaller}
+- Any stock the AI thinks is terrible gets dropped entirely and replaced with its group index (e.g., "large cap value ETF"), so the portfolio stays in-style but doesn’t carry dead weight. Then we rebalance the whole thing to make sure weights sum to 1.
 ```{python}
 #| eval: false
 #| echo: true
 #| code-line-numbers: "1-2|3|4|5-6|8-9"
-# Replace remaining bottom-decile names with the group index
+# Replace remaining bottom-decile names with the group style index
 for j in holdings:
     if decile[j] == 1 and w_ai[j] > 0:
         idx := index_for_group(g[j])
